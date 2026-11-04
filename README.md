@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LegalPro - Frontend Dashboard (Next.js 14)
 
-## Getting Started
+**LegalPro Frontend** is a modern, enterprise-grade, and highly responsive user interface built with **Next.js 14** and **TypeScript**. It seamlessly consumes the Laravel backend API to deliver a fast, intuitive, and feature-rich experience for lawyers, staff, and clients.
 
-First, run the development server:
+## 🌟 Key Frontend Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 📱 1. Mobile-First Responsive Design
+- **Collapsible Sidebar:** Smooth, animated hamburger menu for mobile and tablet devices.
+- **Responsive Data Tables:** Horizontal scrolling and card-view adaptations for small screens.
+- **Touch-Friendly UI:** Optimized button sizes, full-screen modals, and accessible form inputs for mobile users.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### ⚡ 2. Premium UI/UX Polish
+- **Loading Skeletons:** Replaces basic spinners with structural placeholders for a faster perceived load time.
+- **Smooth Transitions:** Page and modal animations powered by `framer-motion`.
+- **Beautiful Empty States:** Informative, illustrated fallback screens when no data is available.
+- **Toast Notifications:** Instant, non-intrusive feedback for success, error, and warning states using `react-hot-toast`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### ⚙️ 3. Dynamic Global State & Branding
+- **Zustand State Management:** Lightweight, global state for Authentication (`useAuthStore`) and System Settings (`useSettingStore`).
+- **Dynamic Branding:** Automatically fetches and displays the System Name and Logo from the backend on the Login Page and Sidebar without requiring authentication.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 🔔 4. Real-Time Notification Center
+- Interactive dropdown in the Header showing unread counts with a pulsing red badge.
+- One-click "Mark all as read" functionality.
+- Clicking a notification automatically marks it as read via API and navigates to the relevant page.
 
-## Learn More
+### 🔍 5. Advanced Global Search
+- **Keyboard Shortcut:** Instantly open the search modal using `Cmd + K` (Mac) or `Ctrl + K` (Windows).
+- Unified search across Cases, Clients, and Invoices with debounced API calls for optimal performance.
 
-To learn more about Next.js, take a look at the following resources:
+### 📄 6. Interactive Document & Template UI
+- **Auto-Fill Preview:** Side-by-side modal allowing users to select a Client/Case and instantly preview the filled legal document before copying.
+- **AI Summarizer UI:** Clean, structured display of AI-generated document summaries with loading states during processing.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 🌓 7. Seamless Dark/Light Mode
+- Persistent theme switching saved in `localStorage`.
+- Carefully tuned Tailwind CSS `dark:` variants for perfect contrast and readability in both modes.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🛠️ Tech Stack & Packages
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Category | Technology / Package |
+|----------|----------------------|
+| **Framework** | Next.js 14+ (App Router) |
+| **Language** | TypeScript |
+| **Styling** | Tailwind CSS |
+| **State Management** | Zustand |
+| **API Client** | Axios (with interceptors for auth tokens) |
+| **Icons** | Lucide React |
+| **Animations** | Framer Motion |
+| **Notifications** | React Hot Toast |
+| **Date Formatting** | date-fns / native JS Date |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 📂 Architecture & Folder Structure
+
+This frontend follows a clean, modular structure to ensure scalability and maintainability:
+
+```text
+src/
+├── app/                  # Next.js App Router (Pages, Layouts, Loading states)
+│   ├── (dashboard)/      # Protected routes (Cases, Tasks, Invoices, etc.)
+│   └── login/            # Public authentication route
+├── components/           # Reusable UI components
+│   ├── layout/           # Sidebar, Header, MainLayout
+│   └── ui/               # Skeletons, EmptyStates, Buttons, Inputs
+├── services/             # Axios API service functions (e.g., caseService, settingService)
+├── store/                # Zustand global state stores (authStore, settingStore)
+├── types/                # Centralized TypeScript interfaces and types
+└── lib/                  # Utility functions and Axios instance configuration
