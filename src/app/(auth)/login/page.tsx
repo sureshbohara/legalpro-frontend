@@ -1,19 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/store/authStore";
 import { useSettingStore } from "@/store/settingStore";
 import { Eye, EyeOff, Loader2, AlertCircle } from "lucide-react";
 import toast from "react-hot-toast";
-export const dynamic = 'force-dynamic';
-
 
 export default function LoginPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const { login, isLoading, error, clearError } = useAuthStore();
-
-   const { settings, fetchSettings } = useSettingStore();
+  const { settings, fetchSettings } = useSettingStore();
 
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -21,26 +17,34 @@ export default function LoginPage() {
     password: "",
     remember: false
   });
+  
+
+  const [redirectUrl, setRedirectUrl] = useState("/");
 
 
-   useEffect(() => {
+  useEffect(() => {
+
     fetchSettings();
+    
+
+    const params = new URLSearchParams(window.location.search);
+    const redirect = params.get("redirect");
+    if (redirect) {
+      setRedirectUrl(redirect);
+    }
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     clearError();
-
     try {
       await login(formData.email, formData.password);
-      toast.success("Login successful! Thanku...");
-      const redirect = searchParams.get("redirect") || "/";
-      router.push(redirect);
+      toast.success("Login successful!");
+      router.push(redirectUrl); 
     } catch (err) {
       console.error("Login error:", err);
     }
   };
-
 
   const systemName = settings?.system_name || "SP Legal Associates";
   const logoUrl = settings?.logo_url;
@@ -50,7 +54,6 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-slate-950 p-4 transition-colors">
       <div className="w-full max-w-4xl bg-white dark:bg-slate-900 rounded-2xl shadow-xl overflow-hidden flex border border-gray-200 dark:border-slate-800">
         
-
         <div className="hidden lg:flex lg:w-1/2 bg-gray-50 dark:bg-slate-800 items-center justify-center p-8">
           <div className="text-center">
             {logoUrl ? (
@@ -148,8 +151,6 @@ export default function LoginPage() {
               )}
             </button>
           </form>
-
-       
         </div>
       </div>
     </div>
