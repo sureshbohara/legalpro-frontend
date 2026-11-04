@@ -5,6 +5,8 @@ import { useAuthStore } from "@/store/authStore";
 import { useSettingStore } from "@/store/settingStore";
 import { Eye, EyeOff, Loader2, AlertCircle } from "lucide-react";
 import toast from "react-hot-toast";
+export const dynamic = 'force-dynamic';
+
 
 export default function LoginPage() {
   const router = useRouter();
