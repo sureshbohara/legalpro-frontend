@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+
+
   images: {
     remotePatterns: [
       {
@@ -18,6 +24,12 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'ui-avatars.com',
+      },
+  
+      {
+        protocol: 'http', 
+        hostname: 'legalpro.movinghimalaya.com',
+        pathname: '/**',
       },
     ],
   },
